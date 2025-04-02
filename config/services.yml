@@ -1,0 +1,11 @@
+services:
+  illusion.advertsmanager.listener:
+    class: illusion\advertsmanager\event\main_listener
+    arguments:
+      - "@dbal.conn"
+      - "@template"
+      - "@user"
+      - "@config"
+      - "%core.table_prefix%"
+    tags:
+      - { name: event.listener }

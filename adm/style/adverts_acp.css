@@ -1,0 +1,104 @@
+/**
+ * Advertisement Manager ACP Styles
+ */
+.adverts-acp-container {
+    background: linear-gradient(to right, #fff, #f8f9fa, #fff);
+    border: 1px solid #e3e3e3;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+.adverts-acp-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.advert-acp-item {
+    background: white;
+    padding: 1rem;
+    border: 1px solid #e3e3e3;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+}
+
+.advert-acp-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.advert-acp-preview {
+    margin: 1rem 0;
+    padding: 0.5rem;
+    background: #f8f9fa;
+    border: 1px dashed #ccc;
+    border-radius: 4px;
+}
+
+.advert-acp-controls {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.advert-acp-status {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.advert-acp-status.active {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.advert-acp-status.inactive {
+    background: #ffebee;
+    color: #c62828;
+}
+
+/* Form Styling */
+.adverts-acp-form {
+    max-width: 800px;
+}
+
+.adverts-acp-form .panel {
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.adverts-acp-form dl {
+    margin-bottom: 1rem;
+}
+
+.adverts-acp-form dt {
+    margin-bottom: 0.5rem;
+}
+
+.adverts-acp-form dd {
+    margin-bottom: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .adverts-acp-container {
+        margin: 0.75rem;
+        padding: 0.75rem;
+    }
+    
+    .advert-acp-controls {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .adverts-acp-container {
+        margin: 0.5rem;
+        padding: 0.5rem;
+    }
+} 

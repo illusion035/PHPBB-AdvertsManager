@@ -1,0 +1,21 @@
+{% if HAS_ADVERTS %}
+<div class="adverts-container">
+  <div class="adverts-wrapper">
+    {% for advert in advert_row %}
+    <div class="advert-item">
+      <a
+        href="{{ advert.ADVERT_URL }}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="{{ advert.BANNER_URL }}"
+          alt="{{ advert.PROJECT_NAME }}"
+          class="advert-banner"
+        />
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}

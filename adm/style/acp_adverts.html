@@ -1,0 +1,192 @@
+{% include 'overall_header.html' %}
+
+<a id="maincontent"></a>
+
+<div class="adverts-acp-container">
+  <h1>{{ lang('ACP_ADVERTS_MANAGER') }}</h1>
+
+  <p>{{ lang('ACP_ADVERTS_MANAGER_EXPLAIN') }}</p>
+
+  <form
+    id="acp_adverts"
+    method="post"
+    action="{{ U_ACTION }}"
+    class="adverts-acp-form"
+  >
+    <fieldset class="advert-acp-item">
+      <legend>{{ lang('ADD_NEW_ADVERT') }}</legend>
+      <dl>
+        <dt>
+          <label for="project_name">{{ lang('PROJECT_NAME') }}</label><br />
+          <span>{{ lang('PROJECT_NAME_EXPLAIN') }}</span>
+        </dt>
+        <dd>
+          <input
+            type="text"
+            id="project_name"
+            name="project_name"
+            value=""
+            class="medium"
+          />
+        </dd>
+      </dl>
+      <dl>
+        <dt>
+          <label for="banner_url">{{ lang('BANNER_URL') }}</label><br />
+          <span>{{ lang('BANNER_URL_EXPLAIN') }}</span>
+        </dt>
+        <dd>
+          <input
+            type="text"
+            id="banner_url"
+            name="banner_url"
+            value=""
+            class="medium"
+          />
+          <div
+            id="banner_preview"
+            class="advert-acp-preview"
+            style="
+              margin-top: 10px;
+              padding: 10px;
+              background: #f8f9fa;
+              border: 1px solid #e3e3e3;
+              border-radius: 4px;
+              min-height: 60px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <span style="color: #666; font-style: italic"
+              >Визуализацията на банера ще се появи тук</span
+            >
+          </div>
+        </dd>
+      </dl>
+      <dl>
+        <dt>
+          <label for="advert_url">{{ lang('ADVERT_URL') }}</label><br />
+          <span>{{ lang('ADVERT_URL_EXPLAIN') }}</span>
+        </dt>
+        <dd>
+          <input
+            type="text"
+            id="advert_url"
+            name="advert_url"
+            value=""
+            class="medium"
+          />
+        </dd>
+      </dl>
+    </fieldset>
+
+    <fieldset class="submit-buttons">
+      <input
+        class="button1"
+        type="submit"
+        id="submit"
+        name="submit"
+        value="{{ lang('SAVE_ADVERT') }}"
+      />&nbsp;
+      <input
+        class="button2"
+        type="reset"
+        id="reset"
+        name="reset"
+        value="{{ lang('RESET') }}"
+      />
+      {{ S_FORM_TOKEN }}
+    </fieldset>
+  </form>
+
+  <div class="adverts-acp-wrapper">
+    <h2>{{ lang('EXISTING_ADVERTS') }}</h2>
+
+    <div class="table-responsive">
+      <table class="table1">
+        <thead>
+          <tr>
+            <th>{{ lang('PROJECT_NAME') }}</th>
+            <th>{{ lang('BANNER_URL') }}</th>
+            <th>{{ lang('ADVERT_URL') }}</th>
+            <th>{{ lang('ACTION') }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for adverts in adverts %}
+          <tr class="advert-acp-item">
+            <td>{{ adverts.PROJECT_NAME }}</td>
+            <td>
+              <div class="advert-acp-preview">
+                <img
+                  src="{{ adverts.BANNER_URL }}"
+                  alt="{{ adverts.PROJECT_NAME }}"
+                  style="max-width: 100%; height: auto"
+                />
+              </div>
+              {{ adverts.BANNER_URL }}
+            </td>
+            <td>{{ adverts.ADVERT_URL }}</td>
+            <td class="advert-acp-controls">
+              <span class="advert-acp-status active">{{ lang('ACTIVE') }}</span>
+              <a href="{{ adverts.U_DELETE }}" class="button2"
+                >{{ lang('DELETE') }}</a
+              >
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="4">{{ lang('NO_ADVERTS') }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var bannerUrlInput = document.getElementById("banner_url");
+    var previewDiv = document.getElementById("banner_preview");
+    var resetButton = document.getElementById("reset");
+
+    function updatePreview() {
+      var url = bannerUrlInput.value.trim();
+      if (url) {
+        var img = new Image();
+        img.onload = function () {
+          previewDiv.innerHTML = "";
+          img.style.maxWidth = "100%";
+          img.style.height = "auto";
+          previewDiv.appendChild(img);
+        };
+        img.onerror = function () {
+          previewDiv.innerHTML =
+            '<span style="color: #c62828;">Грешка при зареждането на изображението. Моля, проверете URL адреса.</span>';
+        };
+        img.src = url;
+      } else {
+        previewDiv.innerHTML =
+          '<span style="color: #666; font-style: italic;">Визуализацията на банера ще се появи тук</span>';
+      }
+    }
+
+    // Update preview when URL changes
+    bannerUrlInput.addEventListener("input", updatePreview);
+    bannerUrlInput.addEventListener("paste", function () {
+      setTimeout(updatePreview, 0);
+    });
+
+    // Reset preview when form is reset
+    resetButton.addEventListener("click", function () {
+      setTimeout(function () {
+        previewDiv.innerHTML =
+          '<span style="color: #666; font-style: italic;">Визуализацията на банера ще се появи тук</span>';
+      }, 0);
+    });
+  })();
+</script>
+
+{% include 'overall_footer.html' %}
